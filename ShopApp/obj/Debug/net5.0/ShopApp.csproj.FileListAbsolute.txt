@@ -1,0 +1,16 @@
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.csproj.AssemblyReference.cache
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.AssemblyInfoInputs.cache
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.AssemblyInfo.cs
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.csproj.CoreCompileInputs.cache
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.exe
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.deps.json
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.runtimeconfig.json
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.runtimeconfig.dev.json
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.dll
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ref\ShopApp.dll
+C:\Users\Ali\source\repos\ShopApp\ShopApp\bin\Debug\net5.0\ShopApp.pdb
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.dll
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ref\ShopApp.dll
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.pdb
+C:\Users\Ali\source\repos\ShopApp\ShopApp\obj\Debug\net5.0\ShopApp.genruntimeconfig.cache
