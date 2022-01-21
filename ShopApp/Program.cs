@@ -22,7 +22,7 @@ namespace ShopApp
             products.Add(clothes);
             products.Add(appliance);
             products.Add(food);
-            Cashier.printReceipt(products, new DateTime(2021, 06, 14));
+            Cashier.printResult(products, new DateTime(2021, 06, 14));
 
 
         }

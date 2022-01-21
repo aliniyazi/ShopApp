@@ -10,54 +10,57 @@ namespace ShopApp.Models
     public static class Cashier
     {
 
-        public static void printReceipt(List<IProduct> products,DateTime purchaseTime)
+        public static Dictionary<IProduct,int> calculateProducts(List<IProduct> products)
         {
-            
-            Console.WriteLine($"Date: {purchaseTime}");
-            Console.WriteLine("Products:");
-            double regularPrice = 0.0;
-            double discountPrice = 0.0;
+
+            Dictionary<IProduct, int> productCount = new Dictionary<IProduct, int>();
             foreach (var item in products)
             {
                 if (item.GetType().Name == "Appliance")
                 {
                     Appliance appliance = (Appliance)item;
-                    
-                    regularPrice += appliance.Price;
-                    if (appliance.Price > 999 && IsWeekend(purchaseTime))
+
+                    if (!productCount.ContainsKey(appliance))
                     {
-                        discountPrice += appliance.Price * 0.05;
+                        productCount.Add(appliance, 0);
                     }
+                    productCount[appliance]++;
+
                 }
                 else if(item.GetType().Name == "Clothes")
                 {
                     Clothes clothes = (Clothes)item;
-                    
-                    regularPrice += clothes.Price;
-                    if (!IsWeekend(purchaseTime))
+
+                    if (!productCount.ContainsKey(clothes))
                     {
-                        discountPrice += clothes.Price * 0.10;
+                        productCount.Add(clothes, 0);
                     }
+                    productCount[clothes]++;
+
+                }
+                else if(item.GetType().Name == "Food")
+                {
+                    Food food = (Food)item;
+
+                    if (!productCount.ContainsKey(food))
+                    {
+                        productCount.Add(food, 0);
+                    }
+                    productCount[food]++;
+                    
                 }
                 else
                 {
-                    PerishableProduct perishableProduct = (PerishableProduct)item;
-                    regularPrice += perishableProduct.Price;
-                    if((perishableProduct.ExpDate - purchaseTime).TotalDays == 0)
+                    Beverage beverage = (Beverage)item;
+
+                    if (!productCount.ContainsKey(beverage))
                     {
-                        discountPrice += perishableProduct.Price * 0.50;
-                        
+                        productCount.Add(beverage, 0);
                     }
-                    else if((perishableProduct.ExpDate - purchaseTime).TotalDays < 5 && (perishableProduct.ExpDate - purchaseTime).TotalDays != 0)
-                    {
-                        discountPrice += perishableProduct.Price * 0.10;
-                    }
-                    
-                    
+                    productCount[beverage]++;
                 }
             }
-            Console.WriteLine(discountPrice);
-            Console.WriteLine(regularPrice);
+            return productCount;
 
         }
         private static bool IsWeekend(DateTime time)
@@ -69,6 +72,72 @@ namespace ShopApp.Models
             else
             {
                 return false;
+            }
+        }
+        private static double CalculateDiscount(IProduct product,DateTime purchaseTime)
+        {
+            double discountPrice = 0.0;
+
+            if (product.GetType().Name == "Appliance")
+            {
+                Appliance appliance = (Appliance)product;
+
+                if (appliance.Price > 999 && IsWeekend(purchaseTime))
+                {
+                    discountPrice = appliance.Price * 0.05;
+                }
+            }
+            else if (product.GetType().Name == "Clothes")
+            {
+                Clothes clothes = (Clothes)product;
+                if (!IsWeekend(purchaseTime))
+                {
+                    discountPrice = clothes.Price * 0.10;
+                }
+            }
+            else if (product.GetType().Name == "Food")
+            {
+                Food food = (Food)product;
+
+                if ((food.ExpDate - purchaseTime).TotalDays == 0)
+                {
+                    discountPrice = food.Price * 0.50;
+
+                }
+                else if ((food.ExpDate - purchaseTime).TotalDays < 5 && (food.ExpDate - purchaseTime).TotalDays != 0)
+                {
+                    discountPrice = food.Price * 0.10;
+                }
+            }
+            else
+            {
+                Beverage beverage = (Beverage)product;
+
+                if ((beverage.ExpDate - purchaseTime).TotalDays == 0)
+                {
+                    discountPrice = beverage.Price * 0.50;
+
+                }
+                else if ((beverage.ExpDate - purchaseTime).TotalDays < 5 && (beverage.ExpDate - purchaseTime).TotalDays != 0)
+                {
+                    discountPrice = beverage.Price * 0.10;
+                }
+            }
+            return discountPrice;
+        }
+        public  static void printResult(List<IProduct> products,DateTime purshaseDateTime)
+        {
+            Console.WriteLine("............Products...........");
+            Dictionary<IProduct, int> productCount = calculateProducts(products);
+            foreach (var item in productCount)
+            {
+                Console.WriteLine($"{item.Key.Name} - {item.Key.Brand}");
+                Console.WriteLine($"{item.Value} x {item.Key.Price} = {item.Value * item.Key.Price}");
+                double discount = CalculateDiscount(item.Key, purshaseDateTime);
+                if (discount != 0)
+                {
+                    Console.WriteLine($"#discount -${discount * item.Value}");
+                }
             }
         }
     }
