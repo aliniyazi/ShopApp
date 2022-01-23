@@ -127,18 +127,29 @@ namespace ShopApp.Models
         }
         public  static void printResult(List<IProduct> products,DateTime purshaseDateTime)
         {
+            Console.WriteLine("Date:" + purshaseDateTime);
             Console.WriteLine("............Products...........");
+            Console.WriteLine(Environment.NewLine);
             Dictionary<IProduct, int> productCount = calculateProducts(products);
+            double subprice = 0.0;
+            double discountPrice = 0.0;
             foreach (var item in productCount)
             {
+                subprice += item.Key.Price * item.Value;
                 Console.WriteLine($"{item.Key.Name} - {item.Key.Brand}");
-                Console.WriteLine($"{item.Value} x {item.Key.Price} = {item.Value * item.Key.Price}");
+                Console.WriteLine($"{item.Value} x ${Math.Round(item.Key.Price,2)} = ${Math.Round(item.Value * item.Key.Price,2)}");
                 double discount = CalculateDiscount(item.Key, purshaseDateTime);
                 if (discount != 0)
                 {
-                    Console.WriteLine($"#discount -${discount * item.Value}");
+                    discountPrice += Math.Round(discount * item.Value, 2);
+                    Console.WriteLine($"#discount {Math.Round((discount/item.Key.Price)*100)}% -${Math.Round(discount * item.Value,2)}");
                 }
+                Console.WriteLine(Environment.NewLine);
             }
+            Console.WriteLine("......................................");
+            Console.WriteLine("SUBTOTAL: $" + Math.Round(subprice,2));
+            Console.WriteLine("DISCOUNT: $"+Math.Round(discountPrice,2));
+            Console.WriteLine("TOTAL: $" + Math.Round(subprice-discountPrice,2));
         }
     }
 }
